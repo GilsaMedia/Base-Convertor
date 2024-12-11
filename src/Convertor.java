@@ -12,8 +12,7 @@ public class Convertor extends AlphabetValues {
     private void checkBase() {
         if (getBase() == 2) {
             binary();
-        }
-        else if (getBase() < 36 && getBase() > 1 && getBase() != 10) {
+        } else if (getBase() < 36 && getBase() > 1 && getBase() != 10) {
             notBinary();
         } else if (getBase() == 10) {
             System.out.println("I'm only converting numbers from base 10");
