@@ -13,15 +13,26 @@ public class Convertor extends AlphabetValues {
         if (getBase() == 2) {
             binary();
         }
-        else if (getBase() < 36 && getBase() > 1) {
+        else if (getBase() < 36 && getBase() > 1 && getBase() != 10) {
             notBinary();
-        } else System.out.println("I'm sorry but I'm not capable of converting ti that base");
+        } else if (getBase() == 10) {
+            System.out.println("I'm only converting numbers from base 10");
+            setConvertedNum(String.valueOf(getNum()));
+        } else System.out.println("I'm sorry but I'm not capable of converting to that base");
     }
     
     private void binary() {
-//        TODO: Need to make its always use nBytes (1Byte, 2Byte ext...)
-
+        String newBaseNum = "";
+        int newDivider = getNum();
+        while (newDivider != 0) {
+            newBaseNum += newDivider - ((newDivider / getBase()) * getBase());
+            newDivider /= getBase();
+        }
+        newBaseNum = binaryBytes(newBaseNum);
+        newBaseNum = reversedNum(newBaseNum);
+        setConvertedNum(newBaseNum);
     }
+
     private void notBinary() {
         String newBaseNum = "";
         int newDivider = getNum();
@@ -35,11 +46,11 @@ public class Convertor extends AlphabetValues {
             }
             newDivider /= getBase();
         }
-        newBaseNum = reversedNumAboveTen(newBaseNum);
+        newBaseNum = reversedNum(newBaseNum);
         setConvertedNum(newBaseNum);
     }
 
-    private String reversedNumAboveTen(String isntReversed) {
+    private String reversedNum(String isntReversed) {
         String reveredStr = "";
         int i = isntReversed.length();
         while (i != 0) {
@@ -69,7 +80,12 @@ public class Convertor extends AlphabetValues {
         this.convertedNum = convertedNum;
     }
 
-    public String getConvertedNum() {
-        return convertedNum;
+    private String binaryBytes(String num) {
+        while (!(num.length() % 4 == 0)) {
+             num += 0;
+        }
+        return num;
     }
+
+    public String getConvertedNum() {return convertedNum;}
 }
